@@ -24,17 +24,15 @@ public:
 
     void clear() override;
 
-
-protected:
-
-    void update(Point newPoint, double angle);
-
     Point getCenter();
 
     double getSize();
 
     double getAngle();
 
+protected:
+
+    void update(Point newPoint, double angle);
     double _size;
     Point _center;
     double _angle;

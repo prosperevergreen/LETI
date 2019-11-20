@@ -9,6 +9,7 @@
 #include <string>
 #include "shapes.h"
 #include "iterator.h"
+#include "listEmptyError.h"
 #include <cmath>
 
 
@@ -94,6 +95,10 @@ void List<T>::print(ostream &out) {
 template<typename T>
 void List<T>::deleteNode(T *del_data)
 {
+
+    if(head == nullptr){
+        throw ListEmptyError("List is Empty");
+    }
     Node<T> *tmp = head;
     /* base case */
 
@@ -126,11 +131,15 @@ void List<T>::deleteNode(T *del_data)
 
 template<typename T>
 ListIterator<T> List<T>::begin() {
+    if (head == nullptr)
+        throw ListInvalidIterator("nullptr head");
     return ListIterator<T>(*this);
 }
 
 template<typename T>
 ListIterator<T> List<T>::end() {
+    if (head == nullptr)
+        throw ListInvalidIterator("nullptr head");
     return ListIterator<T>(*this, true);
 }
 

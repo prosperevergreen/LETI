@@ -2,6 +2,7 @@
 #define SHAPES_LIST_IT_H
 
 #include "list.h"
+#include "listIteratorException.h"
 
 template<typename T>
 struct Node;
@@ -28,13 +29,15 @@ template<typename T>
 ListIterator<T>::ListIterator(const List<T> &l, bool end_) {
     head = l.head;
     current = l.head;
-//    default_value = new T();
+    default_value = current->data;
     is_end = end_;
 }
 
 template<typename T>
 ListIterator<T> ListIterator<T>::operator++() {
     auto tmp = *this;
+    if (current == nullptr)
+        throw ListInvalidIterator("nullptr head");
     if(current->next){
         current = current->next;
         return tmp;
@@ -47,6 +50,8 @@ ListIterator<T> ListIterator<T>::operator++() {
 
 template<typename T>
 const ListIterator<T> ListIterator<T>::operator++(int) {
+    if (current == nullptr)
+        throw ListInvalidIterator("nullptr head");
     if(current->next){
         current = current->next;
         return *this;
